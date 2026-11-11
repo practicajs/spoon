@@ -1,0 +1,20 @@
+{
+  "name": "practicajs",
+  "interface": {
+    "displayName": "practicajs"
+  },
+  "plugins": [
+    {
+      "name": "spoon",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

@@ -28,7 +28,7 @@ Just add `sp 1m` for a one-minute read or `sp ver` to verify the answer. Mix tin
 npx skills add practicajs/spoon --skill spoon
 ```
 
-Prefer the Claude Code or Codex marketplace? [See Install](#-install).
+Prefer the Claude Code, Codex, Copilot or Cursor plugin marketplace? [See Install](#-install).
 
 **2. Open your favorite AI editor**, type your question, then add `sp` and a token or two:
 
@@ -174,6 +174,21 @@ Claude is only the referee. It never votes.
 codex plugin marketplace add practicajs/spoon
 codex plugin add spoon@practicajs
 ```
+
+**GitHub Copilot CLI** — plugin marketplace:
+
+```bash
+copilot plugin marketplace add practicajs/spoon
+copilot plugin install spoon@practicajs
+```
+
+**Cursor** — local plugin (then run *Developer: Reload Window*):
+
+```bash
+git clone https://github.com/practicajs/spoon ~/.cursor/plugins/local/spoon
+```
+
+On a Teams plan, import it as a team marketplace instead: Dashboard → Plugins & MCPs → Team Marketplaces → Import from Repo → `https://github.com/practicajs/spoon`.
 
 **Any agent** — [skills.sh](https://skills.sh) (Claude Code, Codex, Cursor and more):
 

@@ -1,0 +1,16 @@
+{
+  "name": "practicajs",
+  "owner": {
+    "name": "Yoni Goldberg"
+  },
+  "metadata": {
+    "description": "spoon: tiny tokens that shape every answer"
+  },
+  "plugins": [
+    {
+      "name": "spoon",
+      "source": "./",
+      "description": "Tiny tokens that shape every answer: dose (sp 1m, sp 3s), verification, enhancers and formats."
+    }
+  ]
+}
