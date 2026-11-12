@@ -2,6 +2,7 @@
   "name": "spoon-evals",
   "private": true,
   "scripts": {
+    "test": "node --test provider.test.js",
     "eval": "./run.sh"
   },
   "devDependencies": {

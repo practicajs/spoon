@@ -2,6 +2,8 @@
 
 Run: `./run.sh`. Extra args go to promptfoo, e.g. `./run.sh --filter-pattern dose`.
 
+Run the local provider regression tests with `npm test` (Node.js 18+). They use a temporary fake CLI and need no dependencies, logins or model calls. CLI startup failures, timeouts, unsuccessful exits and error results are reported as provider errors; stderr is included for exit failures and missing results.
+
 To run fewer tools, keep one Claude tool in the filter, e.g. `--filter-providers 'codex|claude-cli'`. promptfoo stops if a Claude-only case has no Claude tool to run on.
 
 Every case runs twice on 4 agent tools:

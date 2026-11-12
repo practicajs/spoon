@@ -19,15 +19,29 @@ class ClaudeCli {
 
     return new Promise((resolve) => {
       const p = spawn('claude', args, { cwd: c.working_dir, stdio: ['ignore', 'pipe', 'pipe'] });
-      const timer = setTimeout(() => p.kill(), (c.timeout_s || 480) * 1000);
+      const timeout = c.timeout_s || 480;
+      const timer = setTimeout(() => {
+        p.kill('SIGKILL');
+        resolve({ error: `claude -p timed out after ${timeout}s` });
+      }, timeout * 1000);
       let raw = '';
+      let stderr = '';
       p.stdout.on('data', (d) => { raw += d; });
-      p.on('close', () => {
+      p.stderr.on('data', (d) => { stderr = (stderr + d).slice(-4000); });
+      p.on('error', (error) => {
         clearTimeout(timer);
+        resolve({ error: `Could not start claude -p: ${error.message}` });
+      });
+      p.on('close', (code, signal) => {
+        clearTimeout(timer);
+        const failure = (message) => resolve({ error: `${message}${stderr.trim() ? `: ${stderr.trim()}` : ''}` });
+        if (signal) return failure(`claude -p terminated by ${signal}`);
+        if (code !== 0) return failure(`claude -p exited with exit code ${code}`);
         const events = raw.split('\n').flatMap((l) => { try { return [JSON.parse(l)]; } catch { return []; } });
         // With background subagents, -p can emit several results; the last one is the answer.
         const result = events.filter((e) => e.type === 'result').pop();
-        if (!result) return resolve({ error: 'claude -p returned no result' });
+        if (!result) return failure('claude -p returned no result');
+        if (result.is_error) return failure(`claude -p failed: ${result.errors?.join('; ') || result.result || result.subtype || 'unknown error'}`);
         resolve({ output: result.result || '', cost: result.total_cost_usd, metadata: toMetadata(events) });
       });
     });
