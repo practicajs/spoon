@@ -1,0 +1,28 @@
+name: Local checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [22, 24]
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node }}
+          package-manager-cache: false
+      - run: npm test
+        working-directory: evals
+      - name: Check JavaScript and shell syntax
+        run: |
+          for file in evals/*.js; do node --check "$file"; done
+          bash -n evals/run.sh
+      - run: git diff --check

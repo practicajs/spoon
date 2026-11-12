@@ -13,6 +13,8 @@ Change how the answer is made. They must fit the dose.
 
 ## Crystal
 
+If subagents are unavailable or fail to finish, review the draft yourself for simplicity, completeness and a concrete example, within the dose. Add a brief ⚠️ line saying crystal used self-review because subagent review was unavailable. The footer says `crystal clear (self-reviewed)`; claim subagent review only after it completes.
+
 Write a draft. Then run three **capability** subagents in parallel. Each gets the question, the draft and all arguments, and proposes one edit that fits the dose:
 
 - **Simplicity** — how to make it simpler

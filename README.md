@@ -109,6 +109,16 @@ sp 5s out html       → 5 sentences, big picture, as an HTML artifact
 sp 1m bul sticky on   → every answer: 1 minute, bullets
 sp sticky off         → back to normal
 ```
+
+Tokens on a later turn override saved preferences for that answer only. Add `sticky on` again to save the updated preferences. `sticky off` clears them before the current answer; preferences apply only within the current conversation.
+</details>
+
+<details>
+<summary><b>Predictable commands across agents</b></summary>
+
+Within a category, the last token wins: `sp 1s 3p` means 3 paragraphs, and `sp in out` means zoomed out. Other enhancers combine. Quoted examples, paths and ordinary mentions of spoons do not activate Spoon.
+
+Verification uses the tools available in your agent. If a second model is unavailable, consensus falls back to sampling; if subagents are unavailable, it falls back to thoughtful verification. A short warning explains the limitation, and the footer names the level actually completed. Crystal uses a disclosed self-review when subagents are unavailable.
 </details>
 
 <details>

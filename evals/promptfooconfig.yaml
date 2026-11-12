@@ -67,6 +67,44 @@ tests:
       - { type: not-skill-used, value: spoon }
       - { type: javascript, value: file://asserts.js:spoonFromWorkspace }
 
+  - description: trigger / ordinary spoon mention = not loaded
+    vars: { q: 'What is the difference between a spoon and a ladle?' }
+    options: { disableDefaultAsserts: true }
+    assert:
+      - { type: not-skill-used, value: spoon }
+      - { type: not-regex, value: '🥄' }
+  - description: trigger / quoted command example = not loaded
+    vars: { q: 'Explain what the literal text "sp 1m" means in this README example; do not apply it.' }
+    options: { disableDefaultAsserts: true }
+    assert:
+      - { type: not-skill-used, value: spoon }
+      - { type: not-regex, value: '\n🥄[^\n]*$' }
+  - description: trigger / repository path = not loaded
+    vars: { q: 'What does the filename extension in /projects/spoon/example.py tell you?' }
+    options: { disableDefaultAsserts: true }
+    assert:
+      - { type: not-skill-used, value: spoon }
+      - { type: not-regex, value: '\n🥄[^\n]*$' }
+
+  # Conflicts resolve to the last token in each category.
+  - description: conflicts / last dose wins
+    vars: { q: 'Explain why leaves are green. sp 3p 1s' }
+    assert:
+      - { type: javascript, value: file://asserts.js:oneSentence }
+      - { type: regex, value: '\n🥄[^\n]*1 sentence[^\n]*$' }
+      - { type: not-regex, value: '🥄[^\n]*3 paragraphs' }
+  - description: conflicts / last zoom wins
+    vars: { q: 'Explain what a database does. sp 1s in out' }
+    assert:
+      - { type: javascript, value: file://asserts.js:oneSentence }
+      - { type: regex, value: '\n🥄[^\n]*zoomed out[^\n]*$' }
+      - { type: not-regex, value: '🥄[^\n]*zoomed in' }
+  - description: conflicts / last format wins
+    vars: { q: 'List the main benefits of walking. sp html bul' }
+    assert:
+      - { type: javascript, value: file://asserts.js:boldBullets }
+      - { type: not-regex, value: '<html[\s>]' }
+
   # 2. Dosing: long-answer questions, short doses.
   - description: dose / sp 1s = 1-2 sentences
     vars: { q: 'Who was the most beloved US president in history? sp 1s' }

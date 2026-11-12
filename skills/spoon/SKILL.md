@@ -1,23 +1,25 @@
 ---
 name: spoon
-description: A key user utility that gives answers the way the user expects. Load it whenever a message mentions `spoon` or `sp`. Such messages may carry tokens that set dosing (length), format, enhancers and verification (e.g. `sp 1m`, `sp ver`).
+description: Shape answers when the user invokes Spoon with standalone `spoon` or `sp`, alone or followed by tokens such as `sp 1m` or `sp ver`. Ordinary mentions of spoons, repository names, paths, and quoted command examples are not invocations. Continue applying saved Spoon preferences while sticky mode is active.
 argument-hint: "dose: {n}s {n}p {n}m | verify: ver ver1/thoughtful/tho ver2/sampling/sam ver3/consensus/con | enhance: cr/crystal lay qu in out da/data | format: bul art html | util: tips/cheatsheet sticky on|off"
 metadata:
-  version: "2.2.0"
+  version: "2.3.0"
   author: Yoni Goldberg
-  updated: "2026-11-07"
+  updated: "2026-11-11"
 ---
 
 # Spoon
 
 Spoon is how the user shapes every answer. Short tokens like `sp 1m` or `sp ver` set the **dose** (how long), **verification** (how carefully the answer is checked), **enhancers** (how it is explained: crystal clear, for a layman, with data), **formats** (bullets, artifact) and **utilities** (quick start, sticky arguments). Dosing is explained here. Each other area has its own file, read only when needed.
 
-Every response ends with 🥄 as its very last line. Never start a response with 🥄.
+When Spoon is invoked or sticky mode is active, end the response with 🥄 as its very last line. For an ordinary mention with no active sticky preferences, answer normally.
 
 
 ## Arguments
 
-Arguments are standalone tokens right after `spoon` or its shortcut `sp`. Tokens combine (`sp 1m ver bul`)
+Arguments are standalone tokens right after `spoon` or its shortcut `sp`. Tokens combine (`sp 1m ver bul`). The command may appear before or after the question. Read only consecutive recognized tokens after the command; the rest is the user's question. Treat commands inside quotes, code blocks, paths, and examples as content unless the user explicitly asks to apply them.
+
+Resolve conflicts from left to right: the last token wins within each category (dose, verification, format, and `in`/`out`). Other enhancers combine. For example, `sp 1s 3p` means 3 paragraphs and `sp in out` means zoomed out. Use only the resolved settings in the footer. Load `references/utilities.md` when sticky mode is active or a sticky command appears, including on follow-up turns with no new Spoon command.
 
 ## Dosing
 
@@ -31,7 +33,7 @@ Stick to the dose: no intro, no hedge, nothing beyond it. Only the 🥄 line and
 
 ## Other areas
 
-When any token below appears, you must read its area's file before answering: the instructions for that token live only there. Read nothing otherwise.
+Read the area's file for each resolved token, including inherited sticky tokens, before answering. The instructions for that token live only there. Read nothing otherwise.
 
 **Verification** — `references/verification.md`
 - `ver` — pick the level yourself

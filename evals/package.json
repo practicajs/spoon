@@ -2,6 +2,8 @@
   "name": "spoon-evals",
   "private": true,
   "scripts": {
+    "test": "node --test",
+    "test:session": "node --test session.live.test.js",
     "eval": "./run.sh"
   },
   "devDependencies": {

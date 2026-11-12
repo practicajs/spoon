@@ -20,6 +20,16 @@ Do not show the user the decision process. Show only the final answer. If decidi
 
 Treat the question with care. Back claims with data. Check at least a few sources first; if the truth seems complicated, check a few more. Cover every key angle. Offer the user the data you used.
 
+## Tool availability
+
+Before starting, check the tools and models the platform actually exposes. Apply the short-answer promotion from sampling to consensus first, then choose the strongest available protocol:
+
+- Consensus requires independent subagents on two different models. If subagents are available but a second model is unavailable, use sampling, including for short answers.
+- Sampling requires subagents. If subagents are unavailable or fail to finish, use thoughtful verification.
+- If browsing is unavailable, check against provided material and available local evidence, and state that external sources could not be checked. Keep uncertain claims qualified.
+
+When a requested protocol cannot finish, add one brief ⚠️ line explaining the limitation. The footer names the level actually completed, for example `🥄 verified: thoughtful`. Claim consensus or sampling only after its required checks finish; imagined reviewers and repeated self-review do not count as independent subagents.
+
 ## Sampling
 
 Subagents run on the same model as the main chat. Write the draft. Then:
